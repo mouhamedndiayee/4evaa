@@ -1,28 +1,26 @@
-import { useState } from 'react'
-import './index.css'  // ou le nom de ton fichier CSS
+import { Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Dashboard from './pages/Dashboard'
+import Week from './pages/Week'
+import Section from './pages/Section'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-purple-900 flex items-center justify-center text-white p-8">
-      <div className="text-center">
-        <h1 className="text-6xl font-extrabold mb-8 tracking-tight animate-pulse">
-          4eva
-        </h1>
-        <p className="text-2xl mb-12 max-w-xl mx-auto opacity-90">
-          Plateforme de contenu par week-end – moderne, rapide, avec React + Tailwind v4
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-purple-950 text-white">
+      <Header />
 
-        <button
-          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-10 py-5 rounded-full text-xl font-bold shadow-lg transform transition hover:scale-105 active:scale-95"
-          onClick={() => setCount(count + 1)}
-        >
-          Clics : {count}
-        </button>
-      </div>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/week/:weekId" element={<Week />} />
+          <Route path="/week/:weekId/:sectionSlug" element={<Section />} />
+          <Route path="*" element={
+            <div className="flex items-center justify-center min-h-[70vh] text-4xl text-rose-200">
+              404 – Page non trouvée
+            </div>
+          } />
+        </Routes>
+      </main>
     </div>
   )
 }
-
-export default App
